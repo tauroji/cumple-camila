@@ -189,7 +189,12 @@
 </head>
 
 <body class="text-brownsoft">
+  <!-- AUDIO -->
+  <audio id="bg-music" autoplay loop muted>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <span class="sparkle text-xl top-[8%] left-[10%]">✦</span>
     <span class="sparkle text-2xl top-[14%] right-[14%]" style="animation-delay:.6s">✧</span>
@@ -467,5 +472,23 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+    <script>
+  const audio = document.getElementById('bg-music');
+
+  // Intentar reproducir automáticamente
+  window.addEventListener('load', () => {
+    audio.play().catch(() => {
+      console.log("Autoplay bloqueado");
+    });
+  });
+
+  // Activar sonido en la primera interacción
+  document.addEventListener('click', () => {
+    if (audio.muted) {
+      audio.muted = false;
+      audio.play();
+    }
+  }, { once: true });
+</script>
 </body>
 </html>
