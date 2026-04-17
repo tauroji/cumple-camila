@@ -191,8 +191,13 @@
 <body class="text-brownsoft">
    <!-- AUDIO -->
   <audio id="bg-music" autoplay loop muted>
-    <source src="https://tauroji.github.io/cumple-camila/music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
   </audio>
+  <button id="music-btn"
+  class="fixed bottom-6 right-6 z-50 gold-btn rounded-full px-5 py-3 flex items-center gap-2 text-sm font-semibold shadow-gold">
+  <span id="music-icon">🎵</span>
+  <span id="music-text">Activar música</span>
+</button>
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
     <span class="sparkle text-xl top-[8%] left-[10%]">✦</span>
@@ -471,23 +476,25 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
-    <script>
+ <script>
   const audio = document.getElementById('bg-music');
+  const btn = document.getElementById('music-btn');
+  const text = document.getElementById('music-text');
 
-  // Intentar reproducir automáticamente
-  window.addEventListener('load', () => {
-    audio.play().catch(() => {
-      console.log("Autoplay bloqueado");
-    });
-  });
+  let isPlaying = false;
 
-  // Activar sonido en la primera interacción
-  document.addEventListener('click', () => {
-    if (audio.muted) {
+  btn.addEventListener('click', () => {
+    if (!isPlaying) {
       audio.muted = false;
       audio.play();
+      text.textContent = "Pausar música";
+      isPlaying = true;
+    } else {
+      audio.pause();
+      text.textContent = "Activar música";
+      isPlaying = false;
     }
-  }, { once: true });
+  });
 </script>
 </body>
 </html>
